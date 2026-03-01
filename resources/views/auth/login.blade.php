@@ -51,7 +51,7 @@
 <body>
 
     <div class="container min-vh-100 d-flex align-items-center justify-content-center">
-        <div class="login-box text-center">
+        <div class="login-box text-center align-items-center">
 
             <!-- Logo -->
             <img src="{{ asset('build/assets/original_medicina.png') }}" alt="Logo" width="300px" height="300px">
@@ -88,12 +88,18 @@
 
                 <!-- Botón de login -->
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary shadow-sm">
+                    <button type="submit" class="btn btn-primary shadow-sm m-4">
                         Iniciar Sesión
                     </button>
                 </div>
+                
             </form>
-
+            
+                <div class="text-center">
+                    <p>--Versión 2.9.1 Beta--</p>        
+                </div>
+            
+            
         </div>
     </div>
 

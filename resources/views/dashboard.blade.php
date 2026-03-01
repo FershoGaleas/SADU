@@ -13,13 +13,13 @@
         <div class="row justify-content-center mb-5">
             <div class="col">
                 <a href="{{ route('busqueda_paciente') }}" class="btn btn-lg py-4 text-white shadow-sm"
-                   style="background: linear-gradient(135deg, #4e73df, #224abe);display:flex;justify-content: center ;align-items: center;width: 600px; height: 400px; border-radius: 12px; font-size: 1.7rem; transition: transform 0.2s ease;">
+                   style="background: linear-gradient(135deg, #4e73df, #224abe);display:flex;justify-content: center ;align-items: center;width: 400px; height: 250px; border-radius: 12px; font-size: 1.3rem; transition: transform 0.2s ease;">
                     🔍 BUSCAR PACIENTE EXISTENTE
                 </a>
             </div>
             <div class="col">
                 <a href="{{ route('create_formulario') }}" class="btn btn-lg  py-4 text-white shadow-sm"
-                   style="background: linear-gradient(135deg, #1cc88a, #17a673);display:flex;justify-content: center ;align-items: center; width: 600px; height: 400px;border-radius: 12px; font-size: 1.7rem; transition: transform 0.2s ease;">
+                   style="background: linear-gradient(135deg, #1cc88a, #17a673);display:flex;justify-content: center ;align-items: center; width: 400px; height: 250px;border-radius: 12px; font-size: 1.3rem; transition: transform 0.2s ease;">
                     ➕ REGISTRAR NUEVO PACIENTE
                 </a>
             </div>

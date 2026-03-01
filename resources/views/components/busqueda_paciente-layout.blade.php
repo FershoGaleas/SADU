@@ -48,7 +48,7 @@
 </div>
 <footer>
     <div style="width:100%; text-align:center;">
-        <span>Powered By FERSHO - Version 2.9 Beta </span>
+        <span>Version 2.9 Beta </span>
     </div>
 </footer>
 </body>

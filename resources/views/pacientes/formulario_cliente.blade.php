@@ -192,15 +192,7 @@
                             <br>
                             @error('altura') <small class="text-danger">{{ $message }}</small> @enderror
                             @error('unidad_altura') <small class="text-danger">{{ $message }}</small> @enderror
-                            <label for="plan_medico" class="form-label">Plan Medico:</label>
-                            <div class="input-group">
-                                <select id="plan_medico" name="plan_medico" class="form-select">
-                                    <option value="si" {{ old('plan_medico') == 'si' ? 'selected' : '' }}>si</option>
-                                    <option value="no" {{ old('plan_medico') == 'no' ? 'selected' : '' }}>no</option>
-                                </select>
-                            </div>
-                            @error('altura') <small class="text-danger">{{ $message }}</small> @enderror
-                            @error('unidad_altura') <small class="text-danger">{{ $message }}</small> @enderror
+                            
                             <label for="plan_medico" class="form-label">Plan Medico:</label>
                             <div class="input-group">
                                 <select id="plan_medico" name="plan_medico" class="form-select">

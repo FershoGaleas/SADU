@@ -10,7 +10,7 @@ class SalaEspera extends Model
     use HasFactory;
 
     protected $table = 'sala_esperas';
-    protected $primaryKey = 'id_sala_espera'; // 👈 la PK correcta
+    protected $primaryKey = 'id_sala_espera';
     public $incrementing = true;
     protected $keyType = 'int';
 
@@ -20,7 +20,8 @@ class SalaEspera extends Model
         'identidad',
         'nombre_completo',
         'status',
-        'plan_medico'
+        'plan_medico',
+        'id_enfermera'
     ];
 
     public function paciente()
@@ -31,5 +32,8 @@ class SalaEspera extends Model
     public function doctor()
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+    public function enfermera(){
+        return $this->belongsTo(User::class, 'id_enfermera', 'id');
     }
 }

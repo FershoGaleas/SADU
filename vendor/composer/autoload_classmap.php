@@ -39,6 +39,7 @@ return array(
     'App\\Http\\Requests\\ProfileUpdateRequest' => $baseDir . '/app/Http/Requests/ProfileUpdateRequest.php',
     'App\\Models\\APP' => $baseDir . '/app/Models/APP.php',
     'App\\Models\\Apps' => $baseDir . '/app/Models/Apps.php',
+    'App\\Models\\Archivos' => $baseDir . '/app/Models/Archivos.php',
     'App\\Models\\Medico' => $baseDir . '/app/Models/Medico.php',
     'App\\Models\\Medicos' => $baseDir . '/app/Models/Medicos.php',
     'App\\Models\\MotivoConsulta' => $baseDir . '/app/Models/MotivoConsulta.php',

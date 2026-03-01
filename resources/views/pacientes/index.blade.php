@@ -1,7 +1,7 @@
  <x-app-layout>
         <x-slot name="header">
             <h2 class="font-semibold text-xxl-center">
-                LISTADO DE PACIENTES
+                LISTADO CONSULTAS
             </h2>
         </x-slot>
      <div class="d-flex justify-content-center pt-9 min-vh-100" style="background-color: #ffffff;">

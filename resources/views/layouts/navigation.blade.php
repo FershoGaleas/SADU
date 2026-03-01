@@ -61,7 +61,7 @@
                     @if(auth()->user()->rol === 'admin')
                         <li class="nav-item">
                             <a class="nav-link text-white fw-semibold {{ request()->routeIs('pacientes.index') ? 'active' : '' }}" href="{{ route('pacientes.index') }}">
-                                {{ __('Listado Pacientes') }}
+                                {{ __('Listado Consultas') }}
                             </a>
                         </li>
 

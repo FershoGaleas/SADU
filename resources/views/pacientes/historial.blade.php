@@ -231,16 +231,11 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 <div class="table-responsive">
-                    <table class="table table-hover mt-4 text-center">
+                    <table class="table table-bordered mt-4">
                         <thead class="table-dark">
                         <tr>
                             <th>Fecha</th>
-                            <th>Antecedentes</th>
-                            <th>Diagnóstico</th>
-                            <th>Tratamiento</th>
-                            <th>Examenes</th>
-                            <th>Medico</th>
-                            <th>Próxima cita</th>
+                            <th>HEA</th>
                             <th>Acciones</th>
                         </tr>
                         </thead>
@@ -248,37 +243,101 @@
                         @forelse($paciente->consultas as $consulta)
                             <tr>
                                 <td>{{ \Carbon\Carbon::parse($consulta->fecha_actual)->format('d/m/Y H:i') }}</td>
-                                <td>{{ $consulta->antecedentes }}</td>
                                 <td>{{ $consulta->diagnostico }}</td>
-                                <td>{{ $consulta->tratamiento }}</td>
-                                <td>{{ $consulta->examenes }}</td>
-                                <td>{{ $consulta->nombre_medico }}</td>
-                                <td>{{ $consulta->fecha_siguiente_cita ? \Carbon\Carbon::parse($consulta->fecha_siguiente_cita)->format('d/m/Y') : 'Sin cita' }}</td>
-                                <td class="text-center">
-                                    <div class="d-flex flex-column flex-md-row justify-content-center gap-2">
-                                        <!-- Botón para abrir el modal de archivos -->
-                                        <button type="button" class="btn btn-sm btn-info w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#modalArchivos{{ $consulta->id_consulta }}">
-                                            <i class="bi bi-images"></i> Archivos
+                                <td>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalConsulta{{$consulta->id_consulta}}">
+                                            Mostrar
                                         </button>
+                                        <!-- Modal encargado de mostrar la consulta de esa fecha-->
+                                        <div class="modal fade" id="modalConsulta{{$consulta->id_consulta}}" tabindex="-1" aria-labelledby="modalLabel{{$consulta->id_consulta}}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="modalLabel{{$consulta->id_consulta}}">Consulta del {{ \Carbon\Carbon::parse($consulta->fecha_actual)->format('d/m/Y H:i') }}</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <strong>Historia Enfermedad Actual</strong>
+                                                                    <p><{{ $consulta->historia_enfermedad_Actual }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <strong>Antecedentes</strong>
+                                                                    <p>{{ $consulta->antecedentes }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <strong>Diagnostico</strong>
+                                                                    <p>{{ $consulta->diagnostico }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <strong>Tratamiento</strong>
+                                                                    <p>{{ $consulta->tratamiento }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <strong>Examenes</strong>
+                                                                    <p>{{ $consulta->examenes }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div>
+                                                                    <strong>Nombre del Medico</strong>
+                                                                    <p>{{ $consulta->nombre_medico }}</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <strong>Fecha Siguiente Cita</strong>
+                                                                    <p>{{ $consulta->fecha_siguiente_cita ? \Carbon\Carbon::parse($consulta->fecha_siguiente_cita)->format('d/m/Y') : 'Sin cita' }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col">
+                                                                <div class="d-flex flex-column flex-md-row justify-content-center gap-2">
+                                                                    <!-- Botón para abrir el modal de archivos -->
+                                                                    <button type="button" class="btn btn-sm btn-info w-100 w-md-auto" data-bs-toggle="modal" data-bs-target="#modalArchivos{{ $consulta->id_consulta }}">
+                                                                        <i class="bi bi-images"></i> Archivos
+                                                                    </button>
 
-                                        <a href="{{ route('consultas.edit', $consulta->id_consulta) }}" class="btn btn-sm btn-warning w-100 w-md-auto">
-                                            <i class="bi bi-pencil-square"></i> Ver
-                                        </a>
+                                                                    <a href="{{ route('consultas.edit', $consulta->id_consulta) }}" class="btn btn-sm btn-warning w-100 w-md-auto">
+                                                                        <i class="bi bi-pencil-square"></i> Editar
+                                                                    </a>
 
-                                        <form action="{{ route('consultas.destroy', $consulta->id_consulta) }}" method="POST" class="w-100 w-md-auto">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger w-100 w-md-auto" onclick="return confirm('¿Eliminar esta consulta?')">
-                                                <i class="bi bi-trash"></i> Eliminar
-                                            </button>
-                                        </form>
+                                                                    <form action="{{ route('consultas.destroy', $consulta->id_consulta) }}" method="POST" class="w-100 w-md-auto">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn btn-sm btn-danger w-100 w-md-auto" onclick="return confirm('¿Eliminar esta consulta?')">
+                                                                            <i class="bi bi-trash"></i> Eliminar
+                                                                        </button>
+                                                                    </form>
 
-                                        <a href="{{ route('pacientes.reporte', $consulta->id_consulta) }}" class="btn btn-sm btn-success w-100 w-md-auto" target="_blank">
-                                            <i class="bi bi-file-earmark-pdf"></i> Reporte
-                                        </a>
+                                                                    <a href="{{ route('pacientes.reporte', $consulta->id_consulta) }}" class="btn btn-sm btn-success w-100 w-md-auto" target="_blank">
+                                                                        <i class="bi bi-file-earmark-pdf"></i> Reporte
+                                                                    </a>
+
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                     </div>
                                 </td>
                             </tr>
+
 
                             <!-- Modal único para esta consulta -->
                             <div class="modal fade" id="modalArchivos{{ $consulta->id_consulta }}" tabindex="-1" aria-labelledby="modalArchivosLabel{{ $consulta->id_consulta }}" aria-hidden="true">

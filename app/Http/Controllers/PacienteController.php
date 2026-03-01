@@ -9,6 +9,7 @@ use App\Models\SalaEspera;
 use App\Models\SignosVitales;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -17,18 +18,23 @@ class PacienteController extends Controller
 {
     protected $primaryKey = 'identidad';
 
-    public function destroy($identidad)
-        {
-            $paciente = Paciente::where('identidad', $identidad)->firstOrFail();
-        
-            // Eliminar consultas asociadas
-            $paciente->consultas()->delete();
-        
-            // Eliminar paciente
-            $paciente->delete();
-        
-            return redirect()->route('pacientes.busqueda_paciente')->with('success', 'Paciente y sus consultas fueron eliminados correctamente');
-        }
+    public function destroy($id_paciente)
+    {
+        $paciente = Paciente::where('id_paciente', $id_paciente)->firstOrFail();
+
+        // Eliminar consultas asociadas
+        $paciente->consultas()->delete();
+
+        // Eliminar signos vitales asociados
+        $paciente->signosVitales()->delete();
+
+        // Eliminar paciente
+        $paciente->delete();
+
+        return redirect()->route('pacientes.busqueda_paciente')
+            ->with('success', 'Paciente y sus registros fueron eliminados correctamente');
+    }
+
     public function destroy_espera($id_paciente)
         {
             $paciente = SalaEspera::where('id_paciente', $id_paciente)->firstOrFail();
@@ -438,19 +444,22 @@ class PacienteController extends Controller
         $query = SalaEspera::with(['paciente.consultas'])
             ->join('users', 'sala_esperas.id_user', '=', 'users.id')
             ->select('sala_esperas.*', 'users.name as nombre_usuario')
-            ->where('sala_esperas.id_user', auth()->id()); // <-- filtro por usuario actual
-    
+            ->where(function($q){
+                $q->where('sala_esperas.id_user',auth()->id())
+                    ->orwhere('sala_esperas.id_enfermera',auth()->id());
+            }); // <-- filtro por usuario actual o por enfermera actual
+
         if ($request->filled('identidad')) {
             $query->where('sala_esperas.identidad', 'like', '%' . $request->identidad . '%');
         }
-    
+
         if ($request->filled('nombre')) {
             $query->where('sala_esperas.nombre_completo', 'like', '%' . $request->nombre . '%');
         }
-    
+
         $pacientes = $query->orderBy('sala_esperas.fecha_llegada', 'desc') // ordena los más recientes primero
-                           ->paginate(10);
-    
+        ->paginate(10);
+
         return view('pacientes.sala_de_espera', compact('pacientes'));
     }
 
@@ -525,6 +534,7 @@ class PacienteController extends Controller
                 'nombre_completo' => $paciente->nombre_completo,
                 'estado' => 'Pendiente',
                 'plan_medico'=>$request->plan_medico,
+                'id_enfermera' => Auth::id()
             ]);
         }
 
@@ -606,6 +616,7 @@ class PacienteController extends Controller
                 'nombre_completo' => $paciente->nombre_completo,
                 'estado' => 'Pendiente',
                 'plan_medico' => $request->plan_medico,
+                'id_enfermera' => Auth::id()
             ]);
         }
 

@@ -25,6 +25,9 @@ return new class extends Migration
             $table->foreign('id_user')->references('id')->on('users');
             $table->string('status')->default('Pendiente');
             $table->string('plan_medico')->nullable();
+            $table->unsignedBigInteger('id_enfermera');
+            $table->foreign('id_enfermera')->references('id')->on('users');
+
             $table->timestamps();
         });
     }

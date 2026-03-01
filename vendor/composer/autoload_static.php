@@ -696,6 +696,7 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Models\\APP' => __DIR__ . '/../..' . '/app/Models/APP.php',
         'App\\Models\\Apps' => __DIR__ . '/../..' . '/app/Models/Apps.php',
+        'App\\Models\\Archivos' => __DIR__ . '/../..' . '/app/Models/Archivos.php',
         'App\\Models\\Medico' => __DIR__ . '/../..' . '/app/Models/Medico.php',
         'App\\Models\\Medicos' => __DIR__ . '/../..' . '/app/Models/Medicos.php',
         'App\\Models\\MotivoConsulta' => __DIR__ . '/../..' . '/app/Models/MotivoConsulta.php',

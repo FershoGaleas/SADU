@@ -28,8 +28,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('layouts.navigation', function ($view) {
-            if(auth()->check() && auth()->user()->rol === 'admin') {
-                $conteoSala = SalaEspera::where('id_user', auth()->id())->count();
+            if(auth()->check() && (auth()->user()->rol === 'admin' || auth()->user()->rol === 'usuario')) {
+                $conteoSala = SalaEspera::where(function($q){
+                    $q->where('id_user',auth()->id())
+                        ->orwhere('id_enfermera',auth()->id());
+                })->count();
                 $view->with('conteoSala', $conteoSala);
             }
         });
